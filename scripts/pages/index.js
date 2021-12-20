@@ -1,17 +1,17 @@
 async function getPhotographers() {
     const photographers = './data/photographers.json';
-    // console.log(photographers)
+    // console.log(photographers);
     await fetch(photographers)
     .then((response) => response.json())
         .then((data) => {
-            data.photographers;
-            console.log(data.photographers)
+            photographersData = data.photographers;
+            console.log(data.photographers);
         })
+        .catch((err) => console.log("Error : " + err));
     ;
     
     // et bien retourner le tableau photographers seulement une fois
-    return ({
-        photographers: [...photographers]})
+    return photographersData;
 }
 
 
@@ -20,7 +20,7 @@ async function displayData(photographers) {
         '.photographer_section'
     );
 
-    photographers.forEach((photographer) => {
+    photographersData.forEach((photographer) => {
         const photographerModel = photographerFactory(photographer);
         const userCardDOM = photographerModel.getUserCardDOM();
         photographersSection.appendChild(userCardDOM);
