@@ -26,6 +26,7 @@ function profilFactory(profil) {
       const location = document.createElement("div");
       location.className = "location";
       location.textContent = city + ", " + country;
+
   
       const intro = document.createElement("div");
       intro.className = "intro";

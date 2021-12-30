@@ -6,6 +6,7 @@
 			"city": "London",
 			"country": "UK",
 			"tagline": "Voir le beau dans le quotidien",
+			"tags": ["portrait", "events", "travel", "animals"],
 			"price": 400,
 			"portrait": "MimiKeel.jpg"
 		},
@@ -15,6 +16,7 @@
 			"city": "Paris",
 			"country": "France",
 			"tagline": "Capturer des compositions complexes",
+			"tags": ["sport", "architecture"],
 			"price": 250,
 			"portrait": "EllieRoseWilkens.jpg"
 		},
@@ -24,6 +26,7 @@
 			"city": "Montreal",
 			"country": "Canada",
 			"tagline": "Photographe freelance",
+			"tags": ["art", "fashion", "events"],
 			"price": 500,
 			"portrait": "TracyGalindo.jpg"
 		},
@@ -33,6 +36,7 @@
 			"city": "Mexico City",
 			"country": "Mexico",
 			"tagline": "Toujours aller de l'avant",
+			"tags": ["travel", "portrait"],
 			"price": 350,
 			"portrait": "NabeelBradford.jpg"
 		},
@@ -42,6 +46,7 @@
 			"city": "Barcelona",
 			"country": "Spain",
 			"tagline": "Je crée des souvenirs",
+			"tags": ["sport", "fashion", "events", "animals"],
 			"price": 275,
 			"portrait": "RhodeDubois.jpg"
 		},
@@ -51,6 +56,7 @@
 			"city": "Berlin",
 			"country": "Germany",
 			"tagline": "Toujours à la recherche de LA photo",
+			"tags": ["travel", "architecture"],
 			"price": 300,
 			"portrait": "MarcelNikolic.jpg"
 		}
