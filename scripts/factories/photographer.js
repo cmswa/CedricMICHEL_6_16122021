@@ -9,11 +9,14 @@ function photographerFactory(data) {
         const img = document.createElement( 'img' );
         img.setAttribute("src", picture)
         const h2 = document.createElement( 'h2' );
+        h2.className = 'name';
         h2.textContent = name;
         // console.log(name);
         const h3 = document.createElement( 'h3' );
+        h3.className = 'location';
         h3.textContent = city + ', ' + country;
         const h4 = document.createElement( 'h4' );
+        h4.className = 'taglines';
         h4.textContent = tagline;
         const h5 = document.createElement( 'h5' );
         h5.textContent = price + '€/jour';

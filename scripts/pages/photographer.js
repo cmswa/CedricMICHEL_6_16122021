@@ -49,12 +49,14 @@ function insertMedias(medias, photographerName) {
         title.textContent = media.title;
         if (media.image) {
             const image = document.createElement('img');
+            image.className = 'photograph-content__img';
             image.src = 'assets/medias/' + photographerName + '/' + media.image;
             image.alt = media.title;
             section.append(image);
         }
         if (media.video) {
             const video = document.createElement('video');
+            video.className = 'photograph-content__video';
             const mediaSource = document.createElement('source');
             mediaSource.src =
                 'assets/medias/' + photographerName + '/' + media.video;
