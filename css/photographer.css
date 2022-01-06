@@ -26,7 +26,6 @@
 .photograph-header .name {
     margin: 0;
     font-size: 64px;
-
 }
 
 .photograph-header .location {
@@ -37,7 +36,6 @@
 .photograph-header .taglines {
     font-size: 18px;
 }
-
 
 .photograph-content {
     display: flex;
@@ -58,6 +56,16 @@
     width: 350px;
     border-radius: 5px;
     object-fit: cover;
+}
+
+.photograph-content h3 {
+    width: 350px;
+    display: flex;
+    justify-content: space-between;
+}
+
+.photograph-content__hearts {
+    padding-left: 7px;
 }
 
 .contact_button {

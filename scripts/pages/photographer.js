@@ -19,6 +19,7 @@ console.log(id);
 //     return profil;
 // }
 
+//profil
 async function getProfil() {
     // let profil = [];
     const jsonPath = './data/photographers.json';
@@ -34,6 +35,7 @@ async function displayProfil(profil) {
     profilSection.appendChild(profilDOM);
 }
 
+//medias
 async function getMedias() {
     const jsonPath = './data/photographers.json';
     const response = await fetch(jsonPath);
@@ -53,6 +55,24 @@ function insertMedias(medias, photographerName) {
             image.src = 'assets/medias/' + photographerName + '/' + media.image;
             image.alt = media.title;
             section.append(image);
+
+            let like = document.createElement('div');
+            like.className = 'photograph-content__likes';
+            like.textContent = media.likes;
+            title.append(like);
+
+            const heart = document.createElement('i');
+            heart.className = 'fas fa-heart photograph-content__hearts';
+            heart.content = '\f004';
+            like.append(heart);
+
+            // ajout +1 compteur de like
+            like = media.likes;
+            heart.addEventListener('click', likeCounter); //event
+            function likeCounter() {
+                console.log(like);
+            }
+            for (let i = like; i < like++; i++) {}
         }
         if (media.video) {
             const video = document.createElement('video');
@@ -70,6 +90,11 @@ function insertMedias(medias, photographerName) {
         content.append(section);
     });
 }
+
+// lightbox-modal
+const lightbox = document.createElement('div');
+lightbox.id = 'lightbox-modal';
+
 
 // async function displayProfil(profils) {
 //     const profilSection = document.querySelector(
