@@ -64,6 +64,14 @@
     justify-content: space-between;
 }
 
+.photograph-content__likes {
+    display: flex;
+    align-items: center;
+}
+.photograph-content__likes p {
+    margin: 0;
+}
+
 .photograph-content__hearts {
     padding-left: 7px;
 }

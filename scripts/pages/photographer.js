@@ -45,6 +45,8 @@ async function getMedias() {
 
 function insertMedias(medias, photographerName) {
     const content = document.querySelector('.photograph-content');
+    //Réduit un tableau grâce à une fonction accumulatrice
+    console.log(medias.reduce((acc, media) => +acc + +media.likes, 0)); //compteur total
     medias.forEach((media) => {
         const section = document.createElement('section');
         const title = document.createElement('h3');
@@ -58,7 +60,9 @@ function insertMedias(medias, photographerName) {
 
             let like = document.createElement('div');
             like.className = 'photograph-content__likes';
-            like.textContent = media.likes;
+            const pLike = document.createElement('p');
+            pLike.textContent = media.likes; // nombre de likes pour chaque photo
+            like.append(pLike);
             title.append(like);
 
             const heart = document.createElement('i');
@@ -68,11 +72,14 @@ function insertMedias(medias, photographerName) {
 
             // ajout +1 compteur de like
             like = media.likes;
-            heart.addEventListener('click', likeCounter); //event
-            function likeCounter() {
-                console.log(like);
-            }
-            for (let i = like; i < like++; i++) {}
+            heart.addEventListener('click', (e) => {
+                const count = e.target.previousSibling; //previousSibling renvoie le nœud (node) précédant immédiatement le nœud courant dans la liste childNodes de son parent
+                like++;
+                addLike++;
+                count.textContent = like;
+            });
+            // for (let i = like; i < like++; i++) {}
+    
         }
         if (media.video) {
             const video = document.createElement('video');
@@ -89,12 +96,28 @@ function insertMedias(medias, photographerName) {
         section.append(title);
         content.append(section);
     });
+
+    //compteur total
+    if (main) {
+        const totalLikes = document.createElement('p');
+        totalLikes.id = 'photograph-content__totalLikes';
+        //Réduit un tableau grâce à une fonction accumulatrice
+        totalLikes.textContent = medias.reduce(
+            (acc, media) => +acc + +media.likes,
+            0
+        ); //compteur total
+        content.append(totalLikes);
+
+        // Créer la la partie HTML du total de like
+        // Mettre une balise p avec un id spécifique (ex: totalLikes)
+        // Dans le addEventListener du like rajouter un appel a cet élément pour modifier ca valeur
+        // Faire le total des likes
+    }
 }
 
 // lightbox-modal
 const lightbox = document.createElement('div');
 lightbox.id = 'lightbox-modal';
-
 
 // async function displayProfil(profils) {
 //     const profilSection = document.querySelector(
