@@ -17,7 +17,6 @@ function profilFactory(profil) {
         const h1 = document.createElement('h1');
         h1.className = 'name';
         h1.textContent = name;
-        console.log(h1);
 
         const img = document.createElement('img');
         img.className = 'portrait';

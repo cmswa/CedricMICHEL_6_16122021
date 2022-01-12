@@ -58,6 +58,20 @@ function insertMedias(medias, photographerName) {
             image.alt = media.title;
             section.append(image);
 
+            // lightbox-modal
+            const lightbox = document.createElement('div');
+            lightbox.id = 'lightbox-modal';
+            main.append(lightbox);
+            document.getElementById('lightbox-modal').style.display = 'none';
+            lightbox.src = 'assets/medias/' + photographerName + '/' + media.image;
+            lightbox.alt = media.title;
+            // launch lightbox event
+            image.addEventListener('click', launchModal);
+            // launch modal lightbox
+            function launchModal() {
+                lightbox.style.display = 'block';
+              }
+
             let like = document.createElement('div');
             like.className = 'photograph-content__likes';
             const pLike = document.createElement('p');
@@ -75,11 +89,10 @@ function insertMedias(medias, photographerName) {
             heart.addEventListener('click', (e) => {
                 const count = e.target.previousSibling; //previousSibling renvoie le nœud (node) précédant immédiatement le nœud courant dans la liste childNodes de son parent
                 like++;
-                addLike++;
+                // addLike++; //essai
                 count.textContent = like;
             });
             // for (let i = like; i < like++; i++) {}
-    
         }
         if (media.video) {
             const video = document.createElement('video');
@@ -113,11 +126,8 @@ function insertMedias(medias, photographerName) {
         // Dans le addEventListener du like rajouter un appel a cet élément pour modifier ca valeur
         // Faire le total des likes
     }
+    
 }
-
-// lightbox-modal
-const lightbox = document.createElement('div');
-lightbox.id = 'lightbox-modal';
 
 // async function displayProfil(profils) {
 //     const profilSection = document.querySelector(
