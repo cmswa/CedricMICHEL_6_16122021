@@ -60,15 +60,36 @@ function insertMedias(medias, photographerName) {
 
             // lightbox-modal
             const lightbox = document.createElement('div');
+            const titleLightbox = document.createElement('h3');
+            titleLightbox.textContent = media.title;
             lightbox.id = 'lightbox-modal';
-            main.append(lightbox);
+            document.body.appendChild(lightbox);
+            console.log(lightbox);
             document.getElementById('lightbox-modal').style.display = 'none';
-            lightbox.src = 'assets/medias/' + photographerName + '/' + media.image;
-            lightbox.alt = media.title;
+
+            const previous = document.createElement('i');
+            previous.className = 'fas fa-chevron-left lightbox-modal__icons';
+            previous.content = '\f053';
+            lightbox.append(previous);
+
+            const imageLightbox = document.createElement('img');
+            imageLightbox.className = 'lightbox-modal__img';
+            imageLightbox.src = 'assets/medias/' + photographerName + '/' + media.image;
+            imageLightbox.alt = media.title;
+            lightbox.append(imageLightbox);
+            lightbox.append(titleLightbox);
+
+            const next = document.createElement('i');
+            next.className = 'fas fa-chevron-right lightbox-modal__icons';
+            next.content = '\f054';
+            lightbox.append(next);
+
             // launch lightbox event
             image.addEventListener('click', launchModal);
             // launch modal lightbox
             function launchModal() {
+                header.style.display = 'none';
+                main.style.display = 'none';
                 lightbox.style.display = 'block';
               }
 
@@ -76,6 +97,7 @@ function insertMedias(medias, photographerName) {
             like.className = 'photograph-content__likes';
             const pLike = document.createElement('p');
             pLike.textContent = media.likes; // nombre de likes pour chaque photo
+
             like.append(pLike);
             title.append(like);
 
@@ -89,6 +111,12 @@ function insertMedias(medias, photographerName) {
             heart.addEventListener('click', (e) => {
                 const count = e.target.previousSibling; //previousSibling renvoie le nœud (node) précédant immédiatement le nœud courant dans la liste childNodes de son parent
                 like++;
+                const compteurTotalLike = document.getElementById('photograph-content__totalLikes')
+                console.log(compteurTotalLike);
+                let variableCompteurTotalLike = compteurTotalLike.textContent;
+                variableCompteurTotalLike++;
+                compteurTotalLike.textContent = variableCompteurTotalLike;
+                console.log(variableCompteurTotalLike);
                 // addLike++; //essai
                 count.textContent = like;
             });

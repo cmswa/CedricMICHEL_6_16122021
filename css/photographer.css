@@ -76,10 +76,11 @@
     padding-left: 7px;
 }
 
-.lightbox-modal img {
+.lightbox-modal__img {
     height: 900px;
     width: 1050px;
     border-radius: 5px;
+    object-fit: cover;
 }
 
 .contact_button {
