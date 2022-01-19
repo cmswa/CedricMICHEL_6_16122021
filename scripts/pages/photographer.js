@@ -1,9 +1,8 @@
 //Mettre le code JavaScript lié à la page photographer.html
 // const photographerBanner = document.querySelector(".photograph-header");
 const urlParams = new URLSearchParams(window.location.search); //récupère l'url et la met dans urlParams
-console.log(urlParams);
 const id = urlParams.get('id'); //récupère la valeur du champ id dans urlParams et la met dans la const id
-console.log(id);
+const lightbox = document.createElement('div');
 
 //profil
 // async function getProfil() {
@@ -59,7 +58,7 @@ function insertMedias(medias, photographerName) {
             section.append(image);
 
             // lightbox-modal
-            const lightbox = document.createElement('div');
+            
             const titleLightbox = document.createElement('h3');
             titleLightbox.textContent = media.title;
             lightbox.id = 'lightbox-modal';
@@ -86,13 +85,8 @@ function insertMedias(medias, photographerName) {
 
             // launch lightbox event
             image.addEventListener('click', launchModal);
-            // launch modal lightbox
-            function launchModal() {
-                header.style.display = 'none';
-                main.style.display = 'none';
-                lightbox.style.display = 'block';
-              }
 
+            // likes par défault
             let like = document.createElement('div');
             like.className = 'photograph-content__likes';
             const pLike = document.createElement('p');
@@ -138,7 +132,7 @@ function insertMedias(medias, photographerName) {
         content.append(section);
     });
 
-    //compteur total
+    // compteur total
     if (main) {
         const totalLikes = document.createElement('p');
         totalLikes.id = 'photograph-content__totalLikes';
@@ -148,14 +142,17 @@ function insertMedias(medias, photographerName) {
             0
         ); //compteur total
         content.append(totalLikes);
-
-        // Créer la la partie HTML du total de like
-        // Mettre une balise p avec un id spécifique (ex: totalLikes)
-        // Dans le addEventListener du like rajouter un appel a cet élément pour modifier ca valeur
-        // Faire le total des likes
     }
     
 }
+
+// launch modal lightbox
+function launchModal() {
+    header.style.display = 'none';
+    main.style.display = 'none';
+    lightbox.style.display = 'block';
+  }
+
 
 // async function displayProfil(profils) {
 //     const profilSection = document.querySelector(
