@@ -2,7 +2,6 @@
 // const photographerBanner = document.querySelector(".photograph-header");
 const urlParams = new URLSearchParams(window.location.search); //récupère l'url et la met dans urlParams
 const id = urlParams.get('id'); //récupère la valeur du champ id dans urlParams et la met dans la const id
-const lightbox = document.createElement('div');
 
 //profil
 // async function getProfil() {
@@ -34,6 +33,45 @@ async function displayProfil(profil) {
     profilSection.appendChild(profilDOM);
 }
 
+function buildLightbox() {
+    const lightbox = document.createElement('div');
+    const titleLightbox = document.createElement('h3');
+    titleLightbox.id = 'lightbox-title';
+    lightbox.id = 'lightbox-modal';
+    lightbox.style.display = 'none';
+
+    const previous = document.createElement('i');
+    previous.id = 'previousLightbox';
+    previous.className = 'fas fa-chevron-left lightbox-modal__icons';
+    previous.content = '\f053';
+    previous.addEventListener('click', (e) => {
+        console.log(e.target.getAttribute('current-index'));
+    })
+    lightbox.append(previous);
+
+    const imageLightbox = document.createElement('img');
+    imageLightbox.id = 'imgLightbox';
+    imageLightbox.className = 'lightbox-modal__img';
+    lightbox.append(imageLightbox);
+    lightbox.append(titleLightbox);
+
+    const next = document.createElement('i');
+    next.id = 'nextLightbox';
+    next.className = 'fas fa-chevron-right lightbox-modal__icons';
+    next.content = '\f054';
+
+    lightbox.append(next);
+    document.body.appendChild(lightbox);
+}
+
+function changeLightboxImage(photographerName, image, title) {
+    const imageLightbox = document.getElementById('imgLightbox');
+    imageLightbox.src = 'assets/medias/' + photographerName + '/' + image;
+    imageLightbox.alt = title;
+    const titleImage = document.getElementById('lightbox-title');
+    titleImage.textContent = title;
+}
+
 //medias
 async function getMedias() {
     const jsonPath = './data/photographers.json';
@@ -46,7 +84,8 @@ function insertMedias(medias, photographerName) {
     const content = document.querySelector('.photograph-content');
     //Réduit un tableau grâce à une fonction accumulatrice
     console.log(medias.reduce((acc, media) => +acc + +media.likes, 0)); //compteur total
-    medias.forEach((media) => {
+    buildLightbox();
+    medias.forEach((media, index) => {
         const section = document.createElement('section');
         const title = document.createElement('h3');
         title.textContent = media.title;
@@ -57,34 +96,8 @@ function insertMedias(medias, photographerName) {
             image.alt = media.title;
             section.append(image);
 
-            // lightbox-modal
-            
-            const titleLightbox = document.createElement('h3');
-            titleLightbox.textContent = media.title;
-            lightbox.id = 'lightbox-modal';
-            document.body.appendChild(lightbox);
-            console.log(lightbox);
-            document.getElementById('lightbox-modal').style.display = 'none';
-
-            const previous = document.createElement('i');
-            previous.className = 'fas fa-chevron-left lightbox-modal__icons';
-            previous.content = '\f053';
-            lightbox.append(previous);
-
-            const imageLightbox = document.createElement('img');
-            imageLightbox.className = 'lightbox-modal__img';
-            imageLightbox.src = 'assets/medias/' + photographerName + '/' + media.image;
-            imageLightbox.alt = media.title;
-            lightbox.append(imageLightbox);
-            lightbox.append(titleLightbox);
-
-            const next = document.createElement('i');
-            next.className = 'fas fa-chevron-right lightbox-modal__icons';
-            next.content = '\f054';
-            lightbox.append(next);
-
             // launch lightbox event
-            image.addEventListener('click', launchModal);
+            image.addEventListener('click', launchModal(photographerName, media.image, media.title, index));
 
             // likes par défault
             let like = document.createElement('div');
@@ -105,7 +118,9 @@ function insertMedias(medias, photographerName) {
             heart.addEventListener('click', (e) => {
                 const count = e.target.previousSibling; //previousSibling renvoie le nœud (node) précédant immédiatement le nœud courant dans la liste childNodes de son parent
                 like++;
-                const compteurTotalLike = document.getElementById('photograph-content__totalLikes')
+                const compteurTotalLike = document.getElementById(
+                    'photograph-content__totalLikes'
+                );
                 console.log(compteurTotalLike);
                 let variableCompteurTotalLike = compteurTotalLike.textContent;
                 variableCompteurTotalLike++;
@@ -143,16 +158,19 @@ function insertMedias(medias, photographerName) {
         ); //compteur total
         content.append(totalLikes);
     }
-    
 }
 
 // launch modal lightbox
-function launchModal() {
+function launchModal(photographerName, image, title, index) {
+    const lightbox = document.getElementById('lightbox-modal');
+    const previous = document.getElementById('previousLightbox');
+    const next = document.getElementById('nextLightbox');
+    previous.setAttribute('current-index', index)
     header.style.display = 'none';
     main.style.display = 'none';
     lightbox.style.display = 'block';
-  }
-
+    changeLightboxImage(photographerName, image, title)
+}
 
 // async function displayProfil(profils) {
 //     const profilSection = document.querySelector(
