@@ -76,6 +76,22 @@
     padding-left: 7px;
 }
 
+#lightbox-modal {
+
+}
+
+/* #previousLightbox {
+    height: 900px;
+    line-height: 900px;
+    float: left;
+    }
+    #nextLightbox {
+    height: 900px;
+    line-height: 900px;
+    float: right;
+    order: 1;
+    } */
+
 .lightbox-modal__img {
     height: 900px;
     width: 1050px;

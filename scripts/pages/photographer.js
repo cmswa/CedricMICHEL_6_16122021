@@ -17,7 +17,7 @@ const id = urlParams.get('id'); //récupère la valeur du champ id dans urlParam
 //     return profil;
 // }
 
-//profil
+// profil
 async function getProfil() {
     // let profil = [];
     const jsonPath = './data/photographers.json';
@@ -33,7 +33,8 @@ async function displayProfil(profil) {
     profilSection.appendChild(profilDOM);
 }
 
-function buildLightbox() {
+// lightbox
+function buildLightbox(photographerName) {
     const lightbox = document.createElement('div');
     const titleLightbox = document.createElement('h3');
     titleLightbox.id = 'lightbox-title';
@@ -44,9 +45,19 @@ function buildLightbox() {
     previous.id = 'previousLightbox';
     previous.className = 'fas fa-chevron-left lightbox-modal__icons';
     previous.content = '\f053';
-    previous.addEventListener('click', (e) => {
-        console.log(e.target.getAttribute('current-index'));
-    })
+    previous.addEventListener('click', async (e) => {
+        let changeIndex = +e.target.getAttribute('current-index');
+        changeIndex--;
+        const medias = await getMedias();
+        console.log(medias);
+        const focusImage = medias[changeIndex];
+        const profil = await getProfil();
+        changeLightboxImage(profil.name, focusImage.image, focusImage.title);
+        const previousBtn = document.getElementById('previousLightbox');
+        console.log(previousBtn);
+        previousBtn.setAttribute('current-index', changeIndex);
+        
+    });
     lightbox.append(previous);
 
     const imageLightbox = document.createElement('img');
@@ -59,11 +70,35 @@ function buildLightbox() {
     next.id = 'nextLightbox';
     next.className = 'fas fa-chevron-right lightbox-modal__icons';
     next.content = '\f054';
+    next.addEventListener('click', (e) => {
+        // console.log(e.target.getAttribute('current-index'));
+        let changeIndex = +e.target.getAttribute('current-index');
+        changeIndex++;
+        const medias = await getMedias();
+        console.log(medias);
+
+        const focusImage = medias[changeIndex];
+        const profil = await getProfil();
+        changeLightboxImage(profil.name, focusImage.image, focusImage.title);
+        const nextBtn = document.getElementById('nextLightbox');
+        console.log(nextBtn);
+        nextBtn.setAttribute('current-index', changeIndex);
+    });
+
+    // var start_pos = 0;
+    // var img_count = document.getElementsByClassName('lightbox-modal__img').length - 1;
+    // var changeImg = function(direction){
+    // pos = start_pos = (direction == "next")? (start_pos == img_count)? 0 : start_pos+1 : (start_pos == 0)? img_count : start_pos-1;
+    // console.log(pos)
+    // }
+    // previous.onclick = function(){ changeImg("previous"); }
+    // next.onclick = function(){ changeImg("next"); }
 
     lightbox.append(next);
     document.body.appendChild(lightbox);
 }
 
+// lightbox image
 function changeLightboxImage(photographerName, image, title) {
     const imageLightbox = document.getElementById('imgLightbox');
     imageLightbox.src = 'assets/medias/' + photographerName + '/' + image;
@@ -72,7 +107,7 @@ function changeLightboxImage(photographerName, image, title) {
     titleImage.textContent = title;
 }
 
-//medias
+// medias
 async function getMedias() {
     const jsonPath = './data/photographers.json';
     const response = await fetch(jsonPath);
@@ -97,7 +132,10 @@ function insertMedias(medias, photographerName) {
             section.append(image);
 
             // launch lightbox event
-            image.addEventListener('click', launchModal(photographerName, media.image, media.title, index));
+            image.addEventListener(
+                'click',
+                launchModal(photographerName, media.image, media.title, index)
+            );
 
             // likes par défault
             let like = document.createElement('div');
@@ -162,14 +200,18 @@ function insertMedias(medias, photographerName) {
 
 // launch modal lightbox
 function launchModal(photographerName, image, title, index) {
+    console.log(index);
+
     const lightbox = document.getElementById('lightbox-modal');
     const previous = document.getElementById('previousLightbox');
     const next = document.getElementById('nextLightbox');
-    previous.setAttribute('current-index', index)
+    previous.setAttribute('current-index', index);
+
+    next.setAttribute('current-index', index);
     header.style.display = 'none';
     main.style.display = 'none';
     lightbox.style.display = 'block';
-    changeLightboxImage(photographerName, image, title)
+    changeLightboxImage(photographerName, image, title);
 }
 
 // async function displayProfil(profils) {
