@@ -76,8 +76,41 @@
     padding-left: 7px;
 }
 
-#lightbox-modal {
+#navLightbox {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
 
+#lightbox-modal {
+    margin-top: 5rem;
+    position: relative;
+}
+
+#lightbox-modal__close {
+    position: absolute;
+    top: 0%;
+    right: 10%;
+}
+
+#navLightbox {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+#imgLightbox {
+    padding: 0 2rem;
+}
+
+#lightbox-title {
+    padding-left: 15%;
+    color: #901c1c;
+}
+
+.lightbox-modal__icons {
+    font-size: 48px;
+    color: #901c1c;
 }
 
 /* #previousLightbox {
@@ -89,7 +122,6 @@
     height: 900px;
     line-height: 900px;
     float: right;
-    order: 1;
     } */
 
 .lightbox-modal__img {

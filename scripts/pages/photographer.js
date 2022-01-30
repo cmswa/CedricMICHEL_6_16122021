@@ -41,6 +41,32 @@ function buildLightbox(photographerName) {
     lightbox.id = 'lightbox-modal';
     lightbox.style.display = 'none';
 
+    //container pour faciliter la mise en page
+    const navigationLightbox = document.createElement('div');
+    navigationLightbox.id = 'navLightbox';
+    lightbox.append(navigationLightbox);
+
+    // close lightbox
+    const close = document.createElement('i');
+    close.id = 'lightbox-modal__close';
+    close.className = 'fas fa-times lightbox-modal__icons';
+    close.content = '\f00d';
+    close.addEventListener('click', (e) => {
+        e;
+        lightbox.style.display = 'none';
+        header.style.display = 'block';
+        main.style.display = 'block';
+    });
+    // close.addEventListener('click', closeModalConfirm); //event close modal confirm
+    // function closeModalConfirm() {
+    //     lightbox.style.display = 'none';
+    //     header.style.display = 'block';
+    //     main.style.display = 'block';
+    //       }
+
+    lightbox.append(close);
+
+    // previous image
     const previous = document.createElement('i');
     previous.id = 'previousLightbox';
     previous.className = 'fas fa-chevron-left lightbox-modal__icons';
@@ -51,38 +77,53 @@ function buildLightbox(photographerName) {
         const medias = await getMedias();
         console.log(medias);
         const focusImage = medias[changeIndex];
+        console.log(focusImage);
         const profil = await getProfil();
         changeLightboxImage(profil.name, focusImage.image, focusImage.title);
         const previousBtn = document.getElementById('previousLightbox');
         console.log(previousBtn);
         previousBtn.setAttribute('current-index', changeIndex);
-        
+
+        //boucle quand on arrive au début du tableau vers la fin du tableau
+        if (changeIndex === 0) {
+            changeIndex = medias.length - 1;
+            previousBtn.setAttribute('current-index', changeIndex);
+            console.log(changeIndex);
+        }
     });
-    lightbox.append(previous);
+    navigationLightbox.append(previous);
 
     const imageLightbox = document.createElement('img');
     imageLightbox.id = 'imgLightbox';
     imageLightbox.className = 'lightbox-modal__img';
-    lightbox.append(imageLightbox);
+    navigationLightbox.append(imageLightbox);
     lightbox.append(titleLightbox);
 
+    // next image
     const next = document.createElement('i');
     next.id = 'nextLightbox';
     next.className = 'fas fa-chevron-right lightbox-modal__icons';
     next.content = '\f054';
-    next.addEventListener('click', (e) => {
-        // console.log(e.target.getAttribute('current-index'));
+    next.addEventListener('click', async (e) => {
         let changeIndex = +e.target.getAttribute('current-index');
+        // console.log(e.target.getAttribute('current-index'));
         changeIndex++;
         const medias = await getMedias();
         console.log(medias);
-
         const focusImage = medias[changeIndex];
+        console.log(focusImage);
         const profil = await getProfil();
         changeLightboxImage(profil.name, focusImage.image, focusImage.title);
         const nextBtn = document.getElementById('nextLightbox');
         console.log(nextBtn);
         nextBtn.setAttribute('current-index', changeIndex);
+
+        //boucle quand on arrive à la fin du tableau vers la début du tableau
+        if (changeIndex === medias.length - 1) {
+            changeIndex = 0;
+            nextBtn.setAttribute('current-index', changeIndex);
+            console.log(changeIndex);
+        }
     });
 
     // var start_pos = 0;
@@ -94,7 +135,7 @@ function buildLightbox(photographerName) {
     // previous.onclick = function(){ changeImg("previous"); }
     // next.onclick = function(){ changeImg("next"); }
 
-    lightbox.append(next);
+    navigationLightbox.append(next);
     document.body.appendChild(lightbox);
 }
 
