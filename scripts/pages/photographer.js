@@ -28,6 +28,8 @@ async function getProfil() {
 
 async function displayProfil(profil) {
     const profilSection = document.querySelector('.photograph-header');
+    console.log(profil);
+
     const profilModel = profilFactory(profil);
     const profilDOM = profilModel.getUserPageCardDOM();
     profilSection.appendChild(profilDOM);
@@ -109,21 +111,20 @@ function buildLightbox(photographerName) {
         // console.log(e.target.getAttribute('current-index'));
         changeIndex++;
         const medias = await getMedias();
-        console.log(medias);
+        console.log(medias.lenght);
+        console.log(changeIndex);
+        //boucle quand on arrive à la fin du tableau vers la début du tableau
+        if (changeIndex === medias.length) {
+            changeIndex = 0;
+        }
         const focusImage = medias[changeIndex];
+        console.log(changeIndex);
         console.log(focusImage);
         const profil = await getProfil();
         changeLightboxImage(profil.name, focusImage.image, focusImage.title);
         const nextBtn = document.getElementById('nextLightbox');
         console.log(nextBtn);
         nextBtn.setAttribute('current-index', changeIndex);
-
-        //boucle quand on arrive à la fin du tableau vers la début du tableau
-        if (changeIndex === medias.length - 1) {
-            changeIndex = 0;
-            nextBtn.setAttribute('current-index', changeIndex);
-            console.log(changeIndex);
-        }
     });
 
     // var start_pos = 0;
@@ -269,6 +270,7 @@ function launchModal(photographerName, image, title, index) {
 
 async function init() {
     const profil = await getProfil();
+    console.log(profil);
     displayProfil(profil);
     const medias = await getMedias();
     insertMedias(medias, profil.name);
