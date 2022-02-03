@@ -99,7 +99,7 @@
     justify-content: center;
 }
 
-#imgLightbox {
+#imgLightbox, #vidLightbox {
     padding: 0 2rem;
 }
 
@@ -128,7 +128,7 @@
     float: right;
     } */
 
-.lightbox-modal__img {
+.lightbox-modal__img, .lightbox-modal__video {
     height: 900px;
     width: 1050px;
     border-radius: 5px;
