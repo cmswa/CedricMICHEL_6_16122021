@@ -78,10 +78,10 @@ function buildLightbox(photographerName) {
         changeIndex--;
         const medias = await getMedias();
         console.log(medias);
-        const focusImage = medias[changeIndex];
-        console.log(focusImage);
+        const focusMedia = medias[changeIndex];
+        console.log(focusMedia);
         const profil = await getProfil();
-        changeLightboxImage(profil.name, focusImage.image, focusImage.title);
+        changeLightboxMedia(profil.name, focusMedia, focusMedia.title);
         const previousBtn = document.getElementById('previousLightbox');
         console.log(previousBtn);
         previousBtn.setAttribute('current-index', changeIndex);
@@ -101,6 +101,19 @@ function buildLightbox(photographerName) {
     navigationLightbox.append(imageLightbox);
     lightbox.append(titleLightbox);
 
+    // const videoLightbox = document.createElement('video');
+    // videoLightbox.id = 'videoLightbox';
+    // videoLightbox.className = 'lightbox-modal__video';
+    // // const showVideo =  "<video width='320' height='240' controls></video>";
+    // // videoLightbox.innerHTML = showVideo;
+    // const source = document.createElement('source');
+    // source.id = 'sourceLightbox';
+    // const type = document.createAttribute('type');
+    // type.value = 'video/mp4';
+    // source.setAttributeNode(type);
+    // videoLightbox.append(source);
+    // navigationLightbox.append(videoLightbox);
+
     // next image
     const next = document.createElement('i');
     next.id = 'nextLightbox';
@@ -117,11 +130,11 @@ function buildLightbox(photographerName) {
         if (changeIndex === medias.length) {
             changeIndex = 0;
         }
-        const focusImage = medias[changeIndex];
+        const focusMedia = medias[changeIndex];
         console.log(changeIndex);
-        console.log(focusImage);
+        console.log(focusMedia);
         const profil = await getProfil();
-        changeLightboxImage(profil.name, focusImage.image, focusImage.title);
+        changeLightboxMedia(profil.name, focusMedia, focusMedia.title);
         const nextBtn = document.getElementById('nextLightbox');
         console.log(nextBtn);
         nextBtn.setAttribute('current-index', changeIndex);
@@ -140,11 +153,38 @@ function buildLightbox(photographerName) {
     document.body.appendChild(lightbox);
 }
 
-// lightbox image
-function changeLightboxImage(photographerName, image, title) {
-    const imageLightbox = document.getElementById('imgLightbox');
-    imageLightbox.src = 'assets/medias/' + photographerName + '/' + image;
-    imageLightbox.alt = title;
+// lightbox media
+function changeLightboxMedia(photographerName, media, title) {
+    console.log(media);
+    if (media.image) {
+        const imageLightbox = document.getElementById('imgLightbox');
+        imageLightbox.src =
+            'assets/medias/' + photographerName + '/' + media.image;
+        imageLightbox.alt = title;
+    }
+    // if (media.video) {
+    //     console.log('video');
+    //     const sourceVideoLightbox = document.getElementById('sourceLightbox');
+    //     sourceVideoLightbox.src =
+    //         'assets/medias/' + photographerName + '/' + media.video;
+
+    // }
+    if (media.video) {
+        const mediaVideo = document.createElement('video');
+        const mediaSourceVideo = document.createElement('source');
+        console.log(mediaVideo);
+
+        mediaSourceVideo.className = 'media';
+        mediaSourceVideo.setAttribute('alt', `${media.title}`);
+        console.log(media);
+        mediaSourceVideo.src =
+            'assets/medias/' + photographerName + '/' + media.video;
+        const controls = document.createAttribute('controls');
+        mediaVideo.setAttributeNode(controls);
+        const navigationLightbox = document.getElementById('navLightbox');
+        navigationLightbox.appendChild(mediaVideo);
+        mediaVideo.appendChild(mediaSourceVideo);
+    }
     const titleImage = document.getElementById('lightbox-title');
     titleImage.textContent = title;
 }
@@ -176,7 +216,7 @@ function insertMedias(medias, photographerName) {
             // launch lightbox event
             image.addEventListener(
                 'click',
-                launchModal(photographerName, media.image, media.title, index)
+                launchModal(photographerName, media, media.title, index)
             );
 
             // likes par défault
@@ -241,7 +281,7 @@ function insertMedias(medias, photographerName) {
 }
 
 // launch modal lightbox
-function launchModal(photographerName, image, title, index) {
+function launchModal(photographerName, media, title, index) {
     console.log(index);
 
     const lightbox = document.getElementById('lightbox-modal');
@@ -253,7 +293,7 @@ function launchModal(photographerName, image, title, index) {
     header.style.display = 'none';
     main.style.display = 'none';
     lightbox.style.display = 'block';
-    changeLightboxImage(photographerName, image, title);
+    changeLightboxMedia(photographerName, media, title);
 }
 
 // async function displayProfil(profils) {
