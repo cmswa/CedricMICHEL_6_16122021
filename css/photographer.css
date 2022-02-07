@@ -76,6 +76,34 @@
     padding-left: 7px;
 }
 
+#photograph-content__banner {
+    display: flex;
+    height: 90px;
+    width: 30%;
+    align-items: center;
+    font-size: 24px;
+    background: #db8876;
+    border-radius: 5px;
+    position: fixed;
+    bottom: 0%;
+    right: 4%;
+}
+
+#photograph-content__totalLikes {
+    order: 1;
+    padding-left: 3em;
+    width: 11%;
+}
+
+.fas.fa-heart.photograph-content__hearts {
+    order: 2;
+}
+
+#photograph-content__priceBanner {
+    order: 3;
+    padding-left: 4em;
+}
+
 #navLightbox {
     display: flex;
     align-items: center;
@@ -99,7 +127,8 @@
     justify-content: center;
 }
 
-#imgLightbox, #vidLightbox {
+#imgLightbox,
+#vidLightbox {
     padding: 0 2rem;
 }
 
@@ -113,10 +142,6 @@
     color: #901c1c;
 }
 
-.lightbox-modal__video {
- 
-}
-
 /* #previousLightbox {
     height: 900px;
     line-height: 900px;
@@ -128,7 +153,8 @@
     float: right;
     } */
 
-.lightbox-modal__img, .lightbox-modal__video {
+.lightbox-modal__img,
+.lightbox-modal__video {
     height: 900px;
     width: 1050px;
     border-radius: 5px;

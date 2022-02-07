@@ -227,7 +227,7 @@ function insertMedias(medias, photographerName) {
                 launchModal(photographerName, media, media.title, index)
             );
 
-            // likes par défault
+            // likes par défault pour une image
             let like = document.createElement('div');
             like.className = 'photograph-content__likes';
             const pLike = document.createElement('p');
@@ -270,6 +270,37 @@ function insertMedias(medias, photographerName) {
             mediaSource.setAttributeNode(type);
             video.appendChild(mediaSource);
             section.append(video);
+
+            // likes par défault pour une vidéo
+            let like = document.createElement('div');
+            like.className = 'photograph-content__likes';
+            const pLike = document.createElement('p');
+            pLike.textContent = media.likes; // nombre de likes pour chaque photo
+
+            like.append(pLike);
+            title.append(like);
+
+            const heart = document.createElement('i');
+            heart.className = 'fas fa-heart photograph-content__hearts';
+            heart.content = '\f004';
+            like.append(heart);
+
+            // ajout +1 compteur de like
+            like = media.likes;
+            heart.addEventListener('click', (e) => {
+                const count = e.target.previousSibling; //previousSibling renvoie le nœud (node) précédant immédiatement le nœud courant dans la liste childNodes de son parent
+                like++;
+                const compteurTotalLike = document.getElementById(
+                    'photograph-content__totalLikes'
+                );
+                console.log(compteurTotalLike);
+                let variableCompteurTotalLike = compteurTotalLike.textContent;
+                variableCompteurTotalLike++;
+                compteurTotalLike.textContent = variableCompteurTotalLike;
+                console.log(variableCompteurTotalLike);
+                // addLike++; //essai
+                count.textContent = like;
+            });
         }
         section.append(title);
         content.append(section);
@@ -277,6 +308,11 @@ function insertMedias(medias, photographerName) {
 
     // compteur total
     if (main) {
+        // bannière (container pour faciliter la mise en page)
+        const banner = document.createElement('div');
+        banner.id = 'photograph-content__banner';
+        content.append(banner);
+
         const totalLikes = document.createElement('p');
         totalLikes.id = 'photograph-content__totalLikes';
         //Réduit un tableau grâce à une fonction accumulatrice
@@ -284,7 +320,18 @@ function insertMedias(medias, photographerName) {
             (acc, media) => +acc + +media.likes,
             0
         ); //compteur total
-        content.append(totalLikes);
+        const heart = document.createElement('i');
+
+        heart.className = 'fas fa-heart photograph-content__hearts';
+        heart.content = '\f004';
+        banner.append(heart);
+
+        const priceBanner = document.createElement( 'p' );
+        priceBanner.id = 'photograph-content__priceBanner';
+        priceBanner.textContent = (medias[0].price) + '€ / jour';
+        banner.append(priceBanner);
+
+        banner.append(totalLikes);
     }
 }
 
