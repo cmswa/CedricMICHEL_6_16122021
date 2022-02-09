@@ -322,10 +322,10 @@ function insertMedias(medias, photographerName) {
         ); //compteur total
         const heart = document.createElement('i');
 
+        //bannière
         heart.className = 'fas fa-heart photograph-content__hearts';
         heart.content = '\f004';
         banner.append(heart);
-
         const priceBanner = document.createElement( 'p' );
         priceBanner.id = 'photograph-content__priceBanner';
         priceBanner.textContent = (medias[0].price) + '€ / jour';

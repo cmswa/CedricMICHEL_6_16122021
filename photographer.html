@@ -20,6 +20,12 @@
       <div class="photograph-header">
         <button class="contact_button" onclick="displayModal()">Contactez-moi</button>
       </div>
+      <label for="photograph-select">Trier par</label>
+        <select name="sortBy" id="photograph-select">
+          <option value="popularity">Popularité</option>
+          <option value="date">Date</option>
+          <option value="title">Titre</option>
+        </select>
       <div class="photograph-content"></div>
     </main>
     <div id="contact_modal">
@@ -28,10 +34,17 @@
           <h2>Contactez-moi</h2>
           <img src="assets/icons/close.svg" onclick="closeModal()" />
         </header>
+        <h2 id="modal-photogapherName"></h2>
 				<form>
 					<div>
 						<label>Prénom</label>
 						<input />
+            <label>Nom</label>
+						<input />
+            <label>Email</label>
+						<input />
+            <label>Votre message</label>
+						<input id="modal-message"/>
 					</div>
           <button class="contact_button">Envoyer</button>
 				</form>
