@@ -19,7 +19,6 @@ const id = urlParams.get('id'); //récupère la valeur du champ id dans urlParam
 
 // profil
 async function getProfil() {
-    // let profil = [];
     const jsonPath = './data/photographers.json';
     const response = await fetch(jsonPath);
     const data = await response.json();
@@ -31,6 +30,11 @@ async function displayProfil(profil) {
     console.log(profil);
 
     const profilModel = profilFactory(profil);
+    //contact modal photographer name
+    const photographerNameContact = document.getElementById(
+        'modal-photogapherName'
+    );
+    photographerNameContact.textContent = profil.name;
     const profilDOM = profilModel.getUserPageCardDOM();
     profilSection.appendChild(profilDOM);
 }
@@ -87,15 +91,15 @@ function buildLightbox(photographerName) {
         previousBtn.setAttribute('current-index', changeIndex);
 
         //boucle quand on arrive au début du tableau vers la fin du tableau
-        // if (changeIndex === 0) {
+        if (changeIndex === 0) {
+            changeIndex = medias.length;
+            previousBtn.setAttribute('current-index', changeIndex);
+            console.log(changeIndex);
+        }
+        // while (changeIndex === 0) {
         //     changeIndex = medias.length - 1;
         //     previousBtn.setAttribute('current-index', changeIndex);
-        //     console.log(changeIndex);
         // }
-        while (changeIndex === 0) {
-            changeIndex = medias.length - 1;
-            previousBtn.setAttribute('current-index', changeIndex);
-        }
     });
     navigationLightbox.append(previous);
 
@@ -222,10 +226,10 @@ function insertMedias(medias, photographerName) {
             section.append(image);
 
             // launch lightbox event
-            image.addEventListener(
-                'click',
-                launchModal(photographerName, media, media.title, index)
-            );
+            image.addEventListener('click', (e) => {
+                e.preventDefault;
+                launchModal(photographerName, media, media.title, index);
+            });
 
             // likes par défault pour une image
             let like = document.createElement('div');
@@ -326,9 +330,9 @@ function insertMedias(medias, photographerName) {
         heart.className = 'fas fa-heart photograph-content__hearts';
         heart.content = '\f004';
         banner.append(heart);
-        const priceBanner = document.createElement( 'p' );
+        const priceBanner = document.createElement('p');
         priceBanner.id = 'photograph-content__priceBanner';
-        priceBanner.textContent = (medias[0].price) + '€ / jour';
+        priceBanner.textContent = medias[0].price + '€ / jour';
         banner.append(priceBanner);
 
         banner.append(totalLikes);

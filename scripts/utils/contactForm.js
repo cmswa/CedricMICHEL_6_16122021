@@ -8,5 +8,3 @@ function closeModal() {
     modal.style.display = "none";
 }
 
-// contact modal photographer name
-const photographerNameContact = document.getElementById('modal-photogapherName');
