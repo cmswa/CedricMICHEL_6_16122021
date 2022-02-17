@@ -82,21 +82,22 @@
 #photograph-content__banner {
     display: flex;
     height: 90px;
-    width: 30%;
+    /* width: 30%; */
+    width: 376px;
+    right: 3%;
     align-items: center;
     font-size: 24px;
     background: #db8876;
     border-radius: 5px;
     position: fixed;
     bottom: 0%;
-    right: 4%;
     /* width: 23%;
     right: 2%; */
 }
 
 #photograph-content__totalLikes {
     order: 1;
-    padding-left: 3em;
+    padding-left: 2em;
     width: 11%;
 }
 

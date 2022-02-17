@@ -211,6 +211,7 @@ async function getMedias() {
 // Page des photographes: la galerie des travaux du photographe
 function insertMedias(medias, photographerName) {
     const content = document.querySelector('.photograph-content');
+    content.innerHTML = '';
     //Réduit un tableau grâce à une fonction accumulatrice
     console.log(medias.reduce((acc, media) => +acc + +media.likes, 0)); //compteur total
     buildLightbox();
@@ -275,6 +276,12 @@ function insertMedias(medias, photographerName) {
             video.appendChild(mediaSource);
             section.append(video);
 
+            // launch lightbox event
+            video.addEventListener('click', (e) => {
+                e.preventDefault;
+                launchModal(photographerName, media, media.title, index);
+            });
+
             // likes par défault pour une vidéo
             let like = document.createElement('div');
             like.className = 'photograph-content__likes';
@@ -338,6 +345,76 @@ function insertMedias(medias, photographerName) {
         banner.append(totalLikes);
     }
 }
+
+//menu déroulant
+async function underDropdown() {
+    const medias = await getMedias();
+    // FILTRES
+    console.log(medias);
+    var x = document.getElementById('photograph-select').selectedIndex;
+    var filter = document.getElementsByTagName('option')[x];
+    console.log(filter);
+    const popularity = document.getElementById('popularity');
+    const profil = await getProfil();
+
+    popularity.addEventListener('click', () => {
+        filter = popularity;
+        //tri avec la méthode sort()
+        const mediaSortedByPopularity = medias.sort(function (a, b) {
+            return b.likes - a.likes;
+        });
+        insertMedias(mediaSortedByPopularity, profil.name);
+    });
+    const date = document.getElementById('date');
+    date.addEventListener('click', () => {
+        filter = date;
+        const mediaSortedBydate = medias.sort(function (a, b) {
+            return new Date(b.date) - new Date(a.date);
+        });
+        console.log(mediaSortedBydate);
+        insertMedias(mediaSortedBydate, profil.name);
+    });
+    const title = document.getElementById('title');
+    title.addEventListener('click', () => {
+        console.log(title);
+        filter = title;
+        const mediaSortedByTitle = medias.sort(function (a, b) {
+            if (b.title > a.title) {
+                return -1;
+            }
+            if (a.title > b.title) {
+                return 1;
+            }
+            return 0;
+        });
+        console.log(mediaSortedByTitle);
+        insertMedias(mediaSortedByTitle, profil.name);
+    });
+    // let titleArray = medias.map((val) => val.title);
+    // console.log(titleArray);
+    // let dateArray = medias.map((val) => val.date);
+    // console.log(dateArray);
+    // let popularityArray = medias.map((val) => val.likes);
+    // console.log(popularityArray);
+    // if (filter === title) {
+    //     titleArray.sort();
+    //     console.log('trié par titre', titleArray);
+    // } else if (filter === popularity) {
+    //     popularityArray.sort(sortByIncrease);
+    //     console.log('trié par popularité', popularityArray);
+    // } else if (filter === date) {
+    //     dateArray.sort(sortByDate);
+    //     console.log('trié par date', dateArray);
+    // }
+}
+underDropdown();
+//tri avec la méthode sort()
+// function sortByIncrease(a, b) {
+//     return b - a;
+// }
+// function sortByDate(a, b) {
+//     return new Date(b) - new Date(a);
+// }
 
 // launch modal lightbox
 function launchModal(photographerName, media, title, index) {
