@@ -21,22 +21,23 @@
         <button class="contact_button" onclick="displayModal()">Contactez-moi</button>
       </div>
       <label for="photograph-select">Trier par</label>
-      <i class="fas fa-chevron-down"></i>
         <select name="sortBy" id="photograph-select">
           <option value="popularity" id="popularity">Popularité</option>
           <option value="date" id="date">Date</option>
           <option value="title" id="title">Titre</option>
         </select>
+        <i class="fas fa-chevron-down"></i>
       <div class="photograph-content"></div>
     </main>
-    <div id="contact_modal">
+    <div id="background-modal">
+     <div id="contact_modal">
 			<div class="modal">
 				<header>
           <h2>Contactez-moi</h2>
           <img src="assets/icons/close.svg" onclick="closeModal()" />
         </header>
         <h2 id="modal-photogapherName"></h2>
-				<form>
+				<form name="contact">
 					<div>
 						<label>Prénom</label>
 						<input />
@@ -47,10 +48,11 @@
             <label>Votre message</label>
 						<input id="modal-message"/>
 					</div>
-          <button class="contact_button">Envoyer</button>
+          <button class="contact_button" id="submit-contact_button">Envoyer</button>
 				</form>
 			</div>
 		</div>
+  </div>
     <!-- <video id="videoLightbox" width="320" height="240" controls>
       <source src="assets/medias/Rhode Dubois/Animals_Puppiness.mp4" type="video/mp4">
       <source src="movie.ogg" type="video/ogg">

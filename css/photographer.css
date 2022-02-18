@@ -1,6 +1,6 @@
-#contact_modal {
+/* #contact_modal {
     display: none;
-}
+} */
 
 .photograph-header {
     background-color: #fafafa;
@@ -183,18 +183,18 @@
 .modal {
     border-radius: 5px;
     background-color: #db8876;
-    width: 50%;
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: space-between;
     padding: 35px;
-    margin: auto;
+    margin: 3em 0;
 }
 
 .modal header {
     justify-content: space-between;
     width: 100%;
+    margin-top: 0;
 }
 
 .modal header img {
@@ -205,6 +205,15 @@
     font-size: 64px;
     font-weight: normal;
     text-align: center;
+}
+
+#modal-photogapherName {
+    font-size: 64px;
+    font-weight: normal;
+    margin: 0;
+    text-align: left;
+    width: 100%;
+    margin-bottom: 20px;
 }
 
 form {
@@ -232,20 +241,17 @@ form input {
     height: 68px;
     border: none;
     border-radius: 5px;
+    padding: 12px 20px;
+    box-sizing: border-box;
+    font-size: 30px;
 }
 
 #modal-message {
     height: 250px;
 }
 
-/* #contact_modal {
-    position: relative;
-}
-#main {
-    position: absolute;
-} */
-
-#contact_modal {
+#background-modal {
+    display: none;
     background-color: rgba(196, 196, 196, 0.4);
     position: fixed;
     z-index: 1;
@@ -254,7 +260,12 @@ form input {
     height: 100%;
     width: 100%;
     overflow: auto;
-    padding-top: 7em;
+}
+
+#contact_modal {
+    width: 45%;
+    margin: auto;
+    position: relative;
 }
 
 label[for='photograph-select'] {
@@ -276,4 +287,14 @@ label[for='photograph-select'] {
     -webkit-appearance: none;
     -moz-appearance: none;
     appearance: none;
+}
+
+.fa-chevron-down {
+    position: relative;
+    right: 2em;
+    color: white;
+}
+
+#photograph-select:focus ~ .fa-chevron-down {
+    transform: rotate(180deg);
 }
