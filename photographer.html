@@ -28,7 +28,7 @@
           <option value="date" id="date">Date</option>
           <option value="title" id="title">Titre</option>
         </select>
-        <em class="fas fa-chevron-down"></em>
+        <em id="rotateOn" class="fas fa-chevron-down"></em>
       <div class="photograph-content"></div>
     </main>
     <div id="background-modal">
@@ -39,7 +39,7 @@
           <img src="assets/icons/close.svg" onclick="closeModal()" aria-label="Fermer" alt="fermer"/>
         </header>
         <h2 id="modal-photogapherName"></h2>
-				<form action="photographe.html" method="post" name="contact">
+				<form id="contactForm" action="photographer.html" method="post" name="contact">
 					<div>
 						<label for="prenom">Prénom</label>
 						<input class="contact_modal__input" type="text" name="prenom" id="prenom" required=""/>
@@ -51,7 +51,7 @@
 						<input class="contact_modal__input" type="text" name="message"
             id="message" required=""/>
 					</div>
-          <button class="contact_button" id="submit-contact_button">Envoyer</button>
+          <button type="submit" class="contact_button" id="submit-contact_button">Envoyer</button>
 				</form>
 			</div>
 		</div>

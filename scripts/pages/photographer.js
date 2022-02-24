@@ -78,28 +78,23 @@ function buildLightbox(photographerName) {
     previous.className = 'fas fa-chevron-left lightbox-modal__icons';
     previous.content = '\f053';
     previous.addEventListener('click', async (e) => {
-        let changeIndex = +e.target.getAttribute('current-index');
-        changeIndex--;
         const medias = await getMedias();
-        console.log(medias);
-        const focusMedia = medias[changeIndex];
-        console.log(focusMedia);
-        const profil = await getProfil();
-        changeLightboxMedia(profil.name, focusMedia, focusMedia.title);
-        const previousBtn = document.getElementById('previousLightbox');
-        console.log(previousBtn);
-        previousBtn.setAttribute('current-index', changeIndex);
+        let changeIndex = +e.target.getAttribute('current-index');
 
         //boucle quand on arrive au début du tableau vers la fin du tableau
         if (changeIndex === 0) {
-            changeIndex = medias.length;
-            previousBtn.setAttribute('current-index', changeIndex);
-            console.log(changeIndex);
+            changeIndex = medias.length - 1;
+        } else {
+            changeIndex--;
         }
-        // while (changeIndex === 0) {
-        //     changeIndex = medias.length - 1;
-        //     previousBtn.setAttribute('current-index', changeIndex);
-        // }
+        const focusMedia = medias[changeIndex];
+
+        const profil = await getProfil();
+        changeLightboxMedia(profil.name, focusMedia, focusMedia.title);
+        const previousBtn = document.getElementById('previousLightbox');
+        previousBtn.setAttribute('current-index', changeIndex);
+        const nextBtn = document.getElementById('nextLightbox');
+        nextBtn.setAttribute('current-index', changeIndex);
     });
     navigationLightbox.append(previous);
 
@@ -139,20 +134,19 @@ function buildLightbox(photographerName) {
         // console.log(e.target.getAttribute('current-index'));
         changeIndex++;
         const medias = await getMedias();
-        console.log(medias.lenght);
-        console.log(changeIndex);
+
         //boucle quand on arrive à la fin du tableau vers la début du tableau
         if (changeIndex === medias.length) {
             changeIndex = 0;
         }
         const focusMedia = medias[changeIndex];
-        console.log(changeIndex);
-        console.log(focusMedia);
+
         const profil = await getProfil();
         changeLightboxMedia(profil.name, focusMedia, focusMedia.title);
         const nextBtn = document.getElementById('nextLightbox');
-        console.log(nextBtn);
         nextBtn.setAttribute('current-index', changeIndex);
+        const previousBtn = document.getElementById('previousLightbox');
+        previousBtn.setAttribute('current-index', changeIndex);
     });
 
     // var start_pos = 0;
