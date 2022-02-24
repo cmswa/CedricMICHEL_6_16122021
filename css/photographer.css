@@ -298,3 +298,9 @@ label[for='photograph-select'] {
 #photograph-select:focus ~ .fa-chevron-down {
     transform: rotate(180deg);
 }
+
+.photograph-header .contact_button:hover {
+    background-color: #DB8876;
+    color: black;
+  }
+  

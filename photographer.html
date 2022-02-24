@@ -1,6 +1,8 @@
 <!DOCTYPE html>
-<html>
+<html lang="fr">
   <head>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link href="css/style.css" rel="stylesheet" type="text/css" />
     <meta charset="utf-8">
     <link rel="icon" type="image/png" href="assets/favicon.png">
@@ -18,35 +20,36 @@
     </header>
     <main id="main">
       <div class="photograph-header">
-        <button class="contact_button" onclick="displayModal()">Contactez-moi</button>
+        <button class="contact_button" onclick="displayModal()" aria-label="Contacter Moi">Contactez-moi</button>
       </div>
       <label for="photograph-select">Trier par</label>
-        <select name="sortBy" id="photograph-select">
+        <select name="sortBy" id="photograph-select" aria-label="Trier par">
           <option value="popularity" id="popularity">Popularité</option>
           <option value="date" id="date">Date</option>
           <option value="title" id="title">Titre</option>
         </select>
-        <i class="fas fa-chevron-down"></i>
+        <em class="fas fa-chevron-down"></em>
       <div class="photograph-content"></div>
     </main>
     <div id="background-modal">
-     <div id="contact_modal">
+     <div id="contact_modal" aria-labelledby="contactTitre">
 			<div class="modal">
 				<header>
-          <h2>Contactez-moi</h2>
-          <img src="assets/icons/close.svg" onclick="closeModal()" />
+          <h2 id="contactTitre">Contactez-moi</h2>
+          <img src="assets/icons/close.svg" onclick="closeModal()" aria-label="Fermer" alt="fermer"/>
         </header>
         <h2 id="modal-photogapherName"></h2>
-				<form name="contact">
+				<form action="photographe.html" method="post" name="contact">
 					<div>
-						<label>Prénom</label>
-						<input />
-            <label>Nom</label>
-						<input />
-            <label>Email</label>
-						<input />
-            <label>Votre message</label>
-						<input id="modal-message"/>
+						<label for="prenom">Prénom</label>
+						<input class="contact_modal__input" type="text" name="prenom" id="prenom" required=""/>
+            <label for="nom">Nom</label>
+						<input class="contact_modal__input" type="text" name="nom" id="nom" required=""/>
+            <label for="email">Email</label>
+						<input class="contact_modal__input" type="email" name="email" id="email" required=""/>
+            <label for="message">Votre message</label>
+						<input class="contact_modal__input" type="text" name="message"
+            id="message" required=""/>
 					</div>
           <button class="contact_button" id="submit-contact_button">Envoyer</button>
 				</form>
