@@ -1,12 +1,4 @@
-// function photographePage(data) {
-//     const { id, photographerId, title, image, likes, date, price } = data;
-// }
-
-// function getUserPageCardDOM() {
-
-// }
-
-//profil
+//profil page photographe
 function profilFactory(profil) {
     const { name, portrait, city, country, tagline } = profil;
 
@@ -37,6 +29,7 @@ function profilFactory(profil) {
         description.appendChild(taglines);
 
         const contactBtn = document.querySelector('.contact_button');
+        contactBtn.setAttribute('aria-label', `Contact me ${name}`)
 
         article.appendChild(description);
         article.appendChild(contactBtn);

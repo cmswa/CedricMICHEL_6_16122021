@@ -1,3 +1,4 @@
+//profils photographes (acceuil)
 function photographerFactory(data) {
 
     const { name, portrait, city, country, tagline, price, id, alt } = data;
@@ -10,15 +11,12 @@ function photographerFactory(data) {
         lienCard.className = 'photographe-section__lienCard';
         lienCard.setAttribute('aria-Label', `Aller sur la page de ${name} basé à ${city}, ${country} 
         ,sa devise est ${tagline}, son tarif est de ${price} euros par jour.`);
-        // article.ariaLabel = `Aller sur la page de ${name} basé à ${city}, ${country} 
-        // son tarif est de ${price} euros par jour.`;
         const img = document.createElement( 'img' );
         img.setAttribute("src", picture)
         img.alt = name;
         const h2 = document.createElement( 'h2' );
         h2.className = 'name';
         h2.textContent = name;
-        // console.log(name);
         const h3 = document.createElement( 'h3' );
         h3.className = 'location';
         h3.textContent = city + ', ' + country;
@@ -28,9 +26,6 @@ function photographerFactory(data) {
         const h5 = document.createElement( 'h5' );
         h5.textContent = price + '€/jour';
 
-        // article.addEventListener('click',(e) => {
-        //     location.href = "photographer?id="+id;
-        // })
         // Event pour aller a la page photographe
         lienCard.addEventListener("click", () => {
             window.location = `photographer.html?id=${id}`;

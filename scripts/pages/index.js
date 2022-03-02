@@ -1,7 +1,5 @@
 async function getPhotographers() {
     const jsonPath = './data/photographers.json';
-    // console.log(photographers);
-   
     const response =  await fetch(jsonPath);
     const data = await response.json();
     const photographers = data.photographers;

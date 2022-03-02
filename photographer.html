@@ -5,7 +5,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link href="css/style.css" rel="stylesheet" type="text/css" />
     <meta charset="utf-8">
-    <link rel="icon" type="image/png" href="assets/favicon.png">
+    <!-- <link rel="icon" type="image/png" href="assets/favicon.png"> -->
+    <link href="assets/icons/favicon.ico" rel="shortcut icon" type="image/x-icon" />
     <link href="https://fonts.googleapis.com/css?family=DM+Sans&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.15.4/css/all.css"
         integrity="sha384-DyZ88mC6Up2uqS4h/KRgHuoeGwBcD4Ng9SiP4dIRy0EXTlnuz47vAwmeGwVChigm" crossorigin="anonymous">
@@ -16,19 +17,21 @@
       <a href="index.html">
         <img src="assets/images/logo.png" class="logo" alt="Fisheye Home page" />
       </a>
-
     </header>
     <main id="main">
       <div class="photograph-header">
-        <button class="contact_button" onclick="displayModal()" aria-label="Contacter Moi">Contactez-moi</button>
+        <button class="contact_button" onclick="displayModal()" >Contactez-moi</button>
+        <!-- <button class="contact_button" onclick="displayModal()" aria-label="Contact me">Contactez-moi</button> -->
       </div>
       <label for="photograph-select">Trier par</label>
-        <select name="sortBy" id="photograph-select" aria-label="Trier par">
-          <option value="popularity" id="popularity">Popularité</option>
+        <select name="sortBy" id="photograph-select" aria-label="Order by" >
+          <option selected="selected" value="popularity" id="popularity">Popularité</option>
           <option value="date" id="date">Date</option>
           <option value="title" id="title">Titre</option>
         </select>
-        <em id="rotateOn" class="fas fa-chevron-down"></em>
+        <em class="fas fa-chevron-down"></em>
+        <!-- <em id="rotateOn" class="fas fa-chevron-down"></em> -->
+
       <div class="photograph-content"></div>
     </main>
     <div id="background-modal">
@@ -36,31 +39,27 @@
 			<div class="modal">
 				<header>
           <h2 id="contactTitre">Contactez-moi</h2>
-          <img src="assets/icons/close.svg" onclick="closeModal()" aria-label="Fermer" alt="fermer"/>
+          <img src="assets/icons/close.svg" onclick="closeModal()" aria-label="Close contact form" alt="fermer"/>
         </header>
         <h2 id="modal-photogapherName"></h2>
 				<form id="contactForm" action="photographer.html" method="post" name="contact">
 					<div>
-						<label for="prenom">Prénom</label>
-						<input class="contact_modal__input" type="text" name="prenom" id="prenom" required=""/>
-            <label for="nom">Nom</label>
-						<input class="contact_modal__input" type="text" name="nom" id="nom" required=""/>
-            <label for="email">Email</label>
-						<input class="contact_modal__input" type="email" name="email" id="email" required=""/>
-            <label for="message">Votre message</label>
-						<input class="contact_modal__input" type="text" name="message"
-            id="message" required=""/>
+						<label for="First name">Prénom</label>
+						<input class="contact_modal__input" type="text" name="First name" id="First name" required=""/>
+            <label for="Last name">Nom</label>
+						<input class="contact_modal__input" type="text" name="Last name" id="Last name" required=""/>
+            <label for="Email">Email</label>
+						<input class="contact_modal__input" type="email" name="Email" id="Email" required=""/>
+            <label for="Your message">Votre message</label>
+						<input class="contact_modal__input" type="text" name="Your message"
+            id="Your message" required=""/>
 					</div>
-          <button type="submit" class="contact_button" id="submit-contact_button">Envoyer</button>
+          <button type="submit" class="contact_button" id="submit-contact_button" aria-label="Send">Envoyer</button>
 				</form>
 			</div>
 		</div>
   </div>
-    <!-- <video id="videoLightbox" width="320" height="240" controls>
-      <source src="assets/medias/Rhode Dubois/Animals_Puppiness.mp4" type="video/mp4">
-      <source src="movie.ogg" type="video/ogg">
-    Your browser does not support the video tag.
-    </video>  -->
+
     <script async src="/scripts/factories/photogapherPageFactory.js"></script>
     <script defer src="/scripts/pages/photographer.js"></script>
     <script defer src="/scripts/utils/contactForm.js"></script>
