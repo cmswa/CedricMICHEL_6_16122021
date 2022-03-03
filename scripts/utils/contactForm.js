@@ -14,7 +14,7 @@ function closeModal() {
     document.body.style.overflowY = 'visible';
 }
 
-//evenement fermeture modal via bouton échap
+//evenement fermeture modal via touche échap
 document.addEventListener('keydown', echapKey);
 
 function echapKey(e) {

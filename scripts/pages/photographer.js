@@ -196,7 +196,7 @@ async function underDropdown() {
     const profil = await getProfil();
 
     //filtre par défaut en arrivant sur la page du photographe (ici popularité)
-    if (filter == popularity) {
+    if (x === 0) {
         //tri avec la méthode sort()
         const mediaSortedByPopularity = medias.sort(function (a, b) {
             return b.likes - a.likes;
@@ -212,15 +212,16 @@ async function underDropdown() {
         });
         insertMedias(mediaSortedByPopularity, profil.name);
     });
+
     const date = document.getElementById('date');
     date.addEventListener('click', () => {
         filter = date;
         const mediaSortedBydate = medias.sort(function (a, b) {
             return new Date(b.date) - new Date(a.date);
         });
-        console.log(mediaSortedBydate);
         insertMedias(mediaSortedBydate, profil.name);
     });
+
     const title = document.getElementById('title');
     title.addEventListener('click', () => {
         filter = title;
@@ -236,8 +237,6 @@ async function underDropdown() {
         insertMedias(mediaSortedByTitle, profil.name);
     });
 }
-
-underDropdown();
 
 /// lightbox //
 
@@ -256,6 +255,7 @@ function buildLightbox(photographerName) {
     // close lightbox
     const close = document.createElement('i');
     close.id = 'lightbox-modal__close';
+    close.setAttribute('aria-label', 'Close dialog');
     close.className = 'fas fa-times lightbox-modal__icons';
     close.content = '\f00d';
     close.addEventListener('click', (e) => {
@@ -264,11 +264,21 @@ function buildLightbox(photographerName) {
         header.style.display = 'block';
         main.style.display = 'block';
     });
+
+    //evenement fermeture lightbox via touche échap
+    document.addEventListener('keydown', (e) => {
+        if (e.key === 'Escape') {
+            lightbox.style.display = 'none';
+            header.style.display = 'block';
+            main.style.display = 'block';
+        }
+    });
     lightbox.append(close);
 
     // previous image
     const previous = document.createElement('i');
     previous.id = 'previousLightbox';
+    previous.setAttribute('aria-label', 'Previous image');
     previous.className = 'fas fa-chevron-left lightbox-modal__icons';
     previous.content = '\f053';
     previous.addEventListener('click', async (e) => {
@@ -290,6 +300,29 @@ function buildLightbox(photographerName) {
         const nextBtn = document.getElementById('nextLightbox');
         nextBtn.setAttribute('current-index', changeIndex);
     });
+
+    //evenement navigation précédent via touche fléchée
+    document.addEventListener('keydown', async (e) => {
+        if (e.key === 'ArrowLeft') {
+            const medias = await getMedias();
+            let changeIndex = +e.target.getAttribute('current-index');
+
+            //boucle quand on arrive au début du tableau vers la fin du tableau
+            if (changeIndex === 0) {
+                changeIndex = medias.length - 1;
+            } else {
+                changeIndex--;
+            }
+
+            const focusMedia = medias[changeIndex];
+            const profil = await getProfil();
+            changeLightboxMedia(profil.name, focusMedia, focusMedia.title);
+            const previousBtn = document.getElementById('previousLightbox');
+            previousBtn.setAttribute('current-index', changeIndex);
+            const nextBtn = document.getElementById('nextLightbox');
+            nextBtn.setAttribute('current-index', changeIndex);
+        }
+    });
     navigationLightbox.append(previous);
 
     // lightbox element image
@@ -308,6 +341,7 @@ function buildLightbox(photographerName) {
     // next image
     const next = document.createElement('i');
     next.id = 'nextLightbox';
+    next.setAttribute('aria-label', 'Next image');
     next.className = 'fas fa-chevron-right lightbox-modal__icons';
     next.content = '\f054';
     next.addEventListener('click', async (e) => {
@@ -335,21 +369,18 @@ function buildLightbox(photographerName) {
 
 // lightbox media
 function changeLightboxMedia(photographerName, media, title) {
-    console.log(media);
     if (media.image) {
         const imageLightbox = document.getElementById('imgLightbox');
         imageLightbox.src =
             'assets/medias/' + photographerName + '/' + media.image;
         imageLightbox.alt = title;
         const videoLightbox = document.getElementById('vidLightbox');
-        console.log(videoLightbox);
         videoLightbox.style.display = 'none';
         imageLightbox.style.display = 'block';
     }
     if (media.video) {
         const mediaSourceVideo = document.createElement('source');
         mediaSourceVideo.setAttribute('alt', `${media.title}`);
-        console.log(media);
         mediaSourceVideo.src =
             'assets/medias/' + photographerName + '/' + media.video;
         const controls = document.createAttribute('controls');
@@ -385,6 +416,8 @@ async function init() {
     displayProfil(profil);
     const medias = await getMedias();
     insertMedias(medias, profil.name);
+
+    underDropdown();
 }
 
 init();

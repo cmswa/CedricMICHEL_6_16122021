@@ -29,7 +29,7 @@
           <option value="date" id="date">Date</option>
           <option value="title" id="title">Titre</option>
         </select>
-        <em class="fas fa-chevron-down"></em>
+        <em id="chevron" class="fas fa-chevron-down"></em>
         <!-- <em id="rotateOn" class="fas fa-chevron-down"></em> -->
 
       <div class="photograph-content"></div>
@@ -44,15 +44,15 @@
         <h2 id="modal-photogapherName"></h2>
 				<form id="contactForm" action="photographer.html" method="post" name="contact">
 					<div>
-						<label for="First name">Prénom</label>
-						<input class="contact_modal__input" type="text" name="First name" id="First name" required=""/>
-            <label for="Last name">Nom</label>
-						<input class="contact_modal__input" type="text" name="Last name" id="Last name" required=""/>
-            <label for="Email">Email</label>
-						<input class="contact_modal__input" type="email" name="Email" id="Email" required=""/>
-            <label for="Your message">Votre message</label>
-						<input class="contact_modal__input" type="text" name="Your message"
-            id="Your message" required=""/>
+						<label for="firstName" >Prénom</label>
+						<input class="contact_modal__input" type="text" name="firstName" id="firstName" aria-label="First name" required=""/>
+            <label for="lastName">Nom</label>
+						<input class="contact_modal__input" type="text" name="lastName" id="lastName" aria-label="Last name" required=""/>
+            <label for="email">Email</label>
+						<input class="contact_modal__input" type="email" name="email" id="email" aria-label="email" required=""/>
+            <label for="yourMessage">Votre message</label>
+						<input class="contact_modal__input" type="text" name="yourMessage" aria-label="Your message"
+            id="yourMessage" required=""/>
 					</div>
           <button type="submit" class="contact_button" id="submit-contact_button" aria-label="Send">Envoyer</button>
 				</form>
