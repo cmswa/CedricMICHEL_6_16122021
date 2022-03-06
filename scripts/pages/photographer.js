@@ -32,7 +32,7 @@ async function getMedias() {
 
 /// Page photographe: la galerie des travaux du photographe //
 
-function insertMedias(medias, photographerName) {
+async function insertMedias(medias, photographerName) {
     const content = document.querySelector('.photograph-content');
     content.innerHTML = '';
     //Réduit un tableau grâce à une fonction accumulatrice
@@ -90,7 +90,6 @@ function insertMedias(medias, photographerName) {
                 variableCompteurTotalLike++;
                 compteurTotalLike.textContent = variableCompteurTotalLike;
                 console.log(variableCompteurTotalLike);
-                // addLike++; //essai
                 count.textContent = like;
             });
             // for (let i = like; i < like++; i++) {}
@@ -149,7 +148,6 @@ function insertMedias(medias, photographerName) {
                 variableCompteurTotalLike++;
                 compteurTotalLike.textContent = variableCompteurTotalLike;
                 console.log(variableCompteurTotalLike);
-                // addLike++; //essai
                 count.textContent = like;
             });
         }
@@ -179,7 +177,8 @@ function insertMedias(medias, photographerName) {
         banner.append(heart);
         const priceBanner = document.createElement('p');
         priceBanner.id = 'photograph-content__priceBanner';
-        priceBanner.textContent = medias[0].price + '€ / jour';
+        const profil = await getProfil();
+        priceBanner.textContent = profil.price + '€ / jour';
         banner.append(priceBanner);
 
         banner.append(totalLikes);
@@ -240,7 +239,7 @@ async function underDropdown() {
 
 /// lightbox //
 
-function buildLightbox(photographerName) {
+function buildLightbox() {
     const lightbox = document.createElement('div');
     const titleLightbox = document.createElement('h3');
     titleLightbox.id = 'lightbox-title';
@@ -281,9 +280,10 @@ function buildLightbox(photographerName) {
     previous.setAttribute('aria-label', 'Previous image');
     previous.className = 'fas fa-chevron-left lightbox-modal__icons';
     previous.content = '\f053';
+    //evenement click afficher img précédente
     previous.addEventListener('click', async (e) => {
         const medias = await getMedias();
-        let changeIndex = +e.target.getAttribute('current-index');
+        let changeIndex = +e.target.getAttribute('current-index'); //référence à l'objet qui a envoyé l'événement
 
         //boucle quand on arrive au début du tableau vers la fin du tableau
         if (changeIndex === 0) {
@@ -301,11 +301,12 @@ function buildLightbox(photographerName) {
         nextBtn.setAttribute('current-index', changeIndex);
     });
 
-    //evenement navigation précédent via touche fléchée
+    //evenement navigation keydown (touches fléchées)
     document.addEventListener('keydown', async (e) => {
         if (e.key === 'ArrowLeft') {
             const medias = await getMedias();
-            let changeIndex = +e.target.getAttribute('current-index');
+            const previousBtn = document.getElementById('previousLightbox');
+            let changeIndex = +previousBtn.getAttribute('current-index');
 
             //boucle quand on arrive au début du tableau vers la fin du tableau
             if (changeIndex === 0) {
@@ -317,10 +318,28 @@ function buildLightbox(photographerName) {
             const focusMedia = medias[changeIndex];
             const profil = await getProfil();
             changeLightboxMedia(profil.name, focusMedia, focusMedia.title);
-            const previousBtn = document.getElementById('previousLightbox');
+
             previousBtn.setAttribute('current-index', changeIndex);
             const nextBtn = document.getElementById('nextLightbox');
             nextBtn.setAttribute('current-index', changeIndex);
+        }
+        if (e.key === 'ArrowRight') {
+            const nextBtn = document.getElementById('nextLightbox');
+            let changeIndex = +nextBtn.getAttribute('current-index');
+            changeIndex++;
+            const medias = await getMedias();
+
+            //boucle quand on arrive à la fin du tableau vers la début du tableau
+            if (changeIndex === medias.length) {
+                changeIndex = 0;
+            }
+
+            const focusMedia = medias[changeIndex];
+            const profil = await getProfil();
+            changeLightboxMedia(profil.name, focusMedia, focusMedia.title);
+            nextBtn.setAttribute('current-index', changeIndex);
+            const previousBtn = document.getElementById('previousLightbox');
+            previousBtn.setAttribute('current-index', changeIndex);
         }
     });
     navigationLightbox.append(previous);
@@ -344,6 +363,7 @@ function buildLightbox(photographerName) {
     next.setAttribute('aria-label', 'Next image');
     next.className = 'fas fa-chevron-right lightbox-modal__icons';
     next.content = '\f054';
+    //evenement click afficher img suivante
     next.addEventListener('click', async (e) => {
         let changeIndex = +e.target.getAttribute('current-index');
         changeIndex++;
